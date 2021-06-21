@@ -15,11 +15,11 @@ export default function Header({ onCartClick }: Props) {
 
     return (
         <>
-            <div className="bg-gray-900 text-gray-300 text-xs w-full p-2">
+            <div className="bg-gray-900 text-gray-300 text-xs w-full p-1">
                 <div className="max-w-5xl mx-auto flex items-center">
                     <div className="text-center flex-grow">Get free delivery on orders over $100</div>
                     <div className="space-x-4 flex items-center">
-                        <button className="border-r-2 border-gray-700 px-4 hover:bg-gray-800 py-0.5 rounded" onClick={() => setSignUpForm(!isSignUpFormOpen)}>Create an account</button>
+                        <button className="border-r-2 border-gray-700 px-4 hover:bg-gray-700 py-1 rounded focus:outline-none" onClick={() => setSignUpForm(!isSignUpFormOpen)}>Create an account</button>
                         <button className="hover:bg-gray-800 py-0.5 px-4 rounded" onClick={() => setSigninState(!isSigninFormOpen)}>Sign in</button>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ export default function Header({ onCartClick }: Props) {
                             <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                                 <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">Create an Account</Dialog.Title>
 
-                                <SignUp />
+                                <SignUp onCloseClicked={() => setSignUpForm(false)} />
                             </div>
                         </Transition.Child>
                     </div>
