@@ -30,7 +30,7 @@ export default function SignUp(props: Props) {
                 <span>Confirm Password</span>
                 <input type="password" name="Confirm-Password" placeholder="Confirm Password" className="border border-black py-2 px-3 w-full rounded focus:outline-none" />
             </div>
-            <button className="bg-gray-900 text-gray-300 py-3 px-6 rounded hover:bg-gray-800">Sign Up</button>
+            <button className="bg-gray-900 text-gray-300 py-3 px-6 rounded focus:outline-none hover:bg-gray-800">Sign Up</button>
         </div>
 
     )

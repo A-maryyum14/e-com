@@ -90,7 +90,7 @@ function App() {
                 <div className="flex items-center justify-between">
                   <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 py-2">Cart</Dialog.Title>
                   <button className="bg-gray-100 rounded-full p-2 hover:bg-gray-200 focus:outline-none" onClick={() => setCartState(false)}>
-                    <XIcon className="h-4 w-4"/>
+                    <XIcon className="h-4 w-4" />
                   </button>
                 </div>
                 <div>
@@ -102,7 +102,7 @@ function App() {
                         <th className="text-center px-1 py-2">Price&nbsp;($)</th>
                       </tr>
                     </thead>
-                    <tbody className="text-sm">
+                    <tbody className="text-sm space-y-4">
                       {cart.map((product) => {
                         let { name, price } = products.find((p) => product.id == p.id) || {};
                         return (
@@ -115,25 +115,27 @@ function App() {
                       })}
                     </tbody>
                   </table>
-                  <div className="flex items-center justify-between">
-                    <span>Sub-Total</span>
-                    <input type="number" name="amount" className="border border-black rounded py-2 px-2 w-20" />
+                  <div className="space-y-4 py-4 text-sm font-semibold">
+                    <div className="flex items-center justify-between">
+                      <label>Subtotal</label>
+                      <div></div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label>Tax</label>
+                      <div></div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label>Voucher Code</label>
+                      <input type="code" name="voucher-Code" className="border border-black rounded py-2 px-3 w-24 focus:outline-none"/>
+                    </div>
+                    <div className="flex items-center justify-between pb-6">
+                      <label>Total</label>
+                      <div></div>
+                    </div>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span>Tax</span>
-                    <input type="number" name="amount" className="border border-black rounded py-2 px-2 w-20" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Voucher-Code</span>
-                    <input type="code" name="voucher-code" className="border border-black rounded py-2 px-2 w-20" />
-                  </div>
-                  <div className="flex items-center justify-between pb-6">
-                    <span>Total</span>
-                    <input type="number" name="amount" className="border border-black rounded py-2 px-2 w-20" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <button className="bg-gray-900 text-gray-200 rounded py-3 px-8 hover:bg-gray-800" onClick={() => resetCart()}>Clear Cart</button>
-                    <button className="border border-black rounded py-3 px-8 hover:bg-gray-100">Check Out</button>
+                    <button className="bg-gray-900 text-gray-200 rounded py-3 px-8 focus:outline-none hover:bg-gray-800" onClick={() => resetCart()}>Clear Cart</button>
+                    <button className="border border-black rounded py-3 px-8 focus:outline-none hover:bg-gray-100">Check Out</button>
                   </div>
                 </div>
               </div>
@@ -141,7 +143,7 @@ function App() {
           </div>
         </Dialog>
       </Transition>
-      
+
     </div>
   )
 }
