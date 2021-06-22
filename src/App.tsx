@@ -21,7 +21,7 @@ function App() {
 
   let [isSearchOpen, setSearchState] = useState(false);
 
-  let [isSigninOpen, setSigninState] = useState(false);
+  let [isSignInFormOpen, setSignInForm] = useState(false);
 
   function addToCart(productId: number, quantity = 1) {
     let items = cart.find((product) => product.id == productId);
@@ -141,23 +141,7 @@ function App() {
           </div>
         </Dialog>
       </Transition>
-
-      {isSearchOpen &&
-        <div className="absolute top-12 bottom-0 right-96">
-          <input type="text" name="name" placeholder="Search here" className="border border-gray-200 rounded py-2 px-3 focus:outline-none" />
-        </div>}
-
-      {isSigninOpen &&
-        <div className="border border-gray-200 rounded p-8 bg-white w-96 space-y-2 absolute right-0 top-[99px] bottom-0">
-          <div className="space-y-1">
-            <span>Username</span>
-            <input type="text" name="name" placeholder="Enter username" className="border border-black py-2 px-3 w-full rounded focus:outline-none" />
-          </div>
-          <div className="space-y-1">
-            <span>Password</span>
-            <input type="password" name="Password" placeholder="Enter your password" className="border border-black py-2 px-3 w-full rounded focus:outline-none" />
-          </div>
-        </div>}
+      
     </div>
   )
 }

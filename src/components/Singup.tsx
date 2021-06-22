@@ -35,7 +35,3 @@ export default function SignUp(props: Props) {
 
     )
 }
-
-function setSignUpForm(arg0: boolean): void {
-    throw new Error('Function not implemented.');
-}
