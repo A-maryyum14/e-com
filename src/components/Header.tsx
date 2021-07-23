@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function Header({ onCartClick }: Props) {
-    let [isCartOpen, setCartState] = useState(false);
     let [isSignUpFormOpen, setSignUpForm] = useState(false);
     let [isSearchOpen, setSearchState] = useState(false);
     let [isSignInFormOpen, setSignInForm] = useState(false);
@@ -158,7 +157,7 @@ export default function Header({ onCartClick }: Props) {
                             <div className="inline-block w-full max-w-md overflow-hidden text-left align-top m-20 transition-all transform bg-white shadow-xl rounded-full">
                                 <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900"></Dialog.Title>
 
-                                <Search onCloseClicked={() => setSearchState(false)}/>
+                                <Search onCloseClicked={() => setSearchState(false)} />
                             </div>
                         </Transition.Child>
                     </div>

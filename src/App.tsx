@@ -1,27 +1,18 @@
-import React, { Fragment, useState } from 'react'
-import { SearchIcon } from '@heroicons/react/outline';
+import React, { Fragment, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import CartAside from './components/CartAside';
 import Header from './components/Header';
-import { XIcon } from '@heroicons/react/outline';
-import { Dialog, Transition } from '@headlessui/react';
-
-let products = [
-  { id: 1, name: 'Blue Shirt - Medium', price: 2, image: 'https://encrypted-tbn0.gstatic.com/imgs?q=tbn:ANd9GcShxqfanJ0ztwBQz_j58ZxsMi0lvG3bNK7XMQ&usqp=CAU' },
-  { id: 2, name: 'Brown Belt', price: 1, image: 'https://media.istockphoto.com/photos/brown-leather-belt-isolated-on-white-background-picture-id454363033?k=6&m=454363033&s=612x612&w=0&h=_SeqlMEUl40OZah8bxWah86BIeg3E6ex0nuuGQ8Y1As=' },
-  { id: 3, name: 'Sport Shoes', price: 4, image: 'https://img.freepik.com/free-photo/green-sneakers-sport-running-shoe-isolated-white-background_39665-135.jpg' },
-  { id: 4, name: 'Watch with leather belt', price: 4, image: 'https://www.colourbox.com/preview/4041294-cheap-mechanical-wrist-watch-isolated-on-the-white-background.jpg' },
-  { id: 5, name: 'Denim Cap', price: 1, image: 'https://theelegance.pk/wp-content/uploads/2021/04/denim-cap-in-pakistan-scaled-1-1024x1024.jpg' },
-  { id: 6, name: 'Shades', price: 1, image: 'https://d26hhearhq0yio.cloudfront.net/content/misterspex/produkte/grafiken/6774658_a2.jpg' },
-];
+import { ProductItem } from './models';
+import HomePage from './pages/Home';
+import DetailPage from './pages/DetailPage';
 
 function App() {
   let [isCartOpen, setCartState] = useState(false);
   let [cart, setCart] = useState<{ id: number, quantity: number }[]>([]);
-
-  let [isAccountOpen, setAccountState] = useState(false);
-
-  let [isSearchOpen, setSearchState] = useState(false);
-
-  let [isSignInFormOpen, setSignInForm] = useState(false);
 
   function addToCart(productId: number, quantity = 1) {
     let items = cart.find((product) => product.id == productId);
@@ -33,119 +24,29 @@ function App() {
     setCart([...cart]);
   }
 
-  function resetCart() {
-    setCart([]);
-  }
-
   return (
-    <div>
-      <Header onCartClick={() => setCartState(!isCartOpen)} />
+    <Router>
+        <Header onCartClick={() => setCartState(true)} />
+        <CartAside 
+          cart={cart}
+          isCartOpen={isCartOpen}
+          resetCart={() => setCart([])}
+          closeCart={() => setCartState(false)}
+        />
 
-      <div className="p-8">
-        <div className="container max-w-3xl mx-auto space-y-4">
-          <div className="gap-4 grid grid-cols-3">
-            {products.map((product) => (
-              <div key={product.id} className="bg-white border border-gray-200 rounded p-6 space-y-2">
-                <div className="border border-gray-200 rounded py-2 px-2">
-                  <img className="w-full h-36 object-cover" src={product.image} />
-                </div>
-                <div className="text-gray-800 text-center">{product.name}</div>
-                <div className="text-red-600 font-semibold text-center">{product.price}$</div>
-                <button className="border border-black rounded text-sm font-semibold py-2 w-full hover:bg-gray-100" onClick={() => addToCart(product.id)}>
-                  Add to cart
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <Transition appear show={isCartOpen} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 z-10" onClose={() => setCartState(false)}>
-          <div className="min-h-screen text-right">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
-            </Transition.Child>
-
-            <span className="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
-
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="translate-x-full"
-              enterTo="translate-x-0"
-              leave="ease-in duration-200"
-              leaveFrom="translate-x-0"
-              leaveTo="translate-x-full"
-            >
-              <div className="inline-block h-screen max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl">
-                <div className="flex items-center justify-between">
-                  <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 py-2">Cart</Dialog.Title>
-                  <button className="bg-gray-100 rounded-full p-2 hover:bg-gray-200 focus:outline-none" onClick={() => setCartState(false)}>
-                    <XIcon className="h-4 w-4" />
-                  </button>
-                </div>
-                <div>
-                  <table className="table-auto border-b border-gray-300">
-                    <thead className="text-base font-bold">
-                      <tr>
-                        <th className="w-full px-1 py-2 text-left">Items</th>
-                        <th className="text-center px-1 py-2">Quantity</th>
-                        <th className="text-center px-1 py-2">Price&nbsp;($)</th>
-                      </tr>
-                    </thead>
-                    <tbody className="text-sm space-y-4">
-                      {cart.map((product) => {
-                        let { name, price } = products.find((p) => product.id == p.id) || {};
-                        return (
-                          <tr key={product.id}>
-                            <td>{name}</td>
-                            <td className="text-center px-1 py-2">{product.quantity}</td>
-                            <td className="text-center px-1 py-2">{(price || 0) * product.quantity}</td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </table>
-                  <div className="space-y-4 py-4 text-sm font-semibold">
-                    <div className="flex items-center justify-between">
-                      <label>Subtotal</label>
-                      <div></div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label>Tax</label>
-                      <div></div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label>Voucher Code</label>
-                      <input type="code" name="voucher-Code" className="border border-black rounded py-2 px-3 w-24 focus:outline-none"/>
-                    </div>
-                    <div className="flex items-center justify-between pb-6">
-                      <label>Total</label>
-                      <div></div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <button className="bg-gray-900 text-gray-200 rounded py-3 px-8 focus:outline-none hover:bg-gray-800" onClick={() => resetCart()}>Clear Cart</button>
-                    <button className="border border-black rounded py-3 px-8 focus:outline-none hover:bg-gray-100">Check Out</button>
-                  </div>
-                </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
-
-    </div>
-  )
+        <Switch>
+          <Route path="/about">
+            <div>About Page</div>
+          </Route>
+          <Route path="/products/:id">
+            <DetailPage />
+          </Route>
+          <Route path="/">
+            <HomePage addToCart={addToCart} />
+          </Route>
+        </Switch>
+    </Router>
+  );
 }
 
 export default App
