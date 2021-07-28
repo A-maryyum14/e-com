@@ -3,12 +3,14 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
 } from "react-router-dom";
 import CartAside from './components/CartAside';
 import Header from './components/Header';
 import { ProductItem } from './models';
 import HomePage from './pages/Home';
 import DetailPage from './pages/DetailPage';
+import CheckOut from './pages/CheckOut';
 
 function App() {
   let [isCartOpen, setCartState] = useState(false);
@@ -26,14 +28,13 @@ function App() {
 
   return (
     <Router>
-        <Header onCartClick={() => setCartState(true)} />
+        <Header onCartClick={() => setCartState(true)}/>
         <CartAside 
           cart={cart}
           isCartOpen={isCartOpen}
           resetCart={() => setCart([])}
           closeCart={() => setCartState(false)}
         />
-
         <Switch>
           <Route path="/about">
             <div>About Page</div>
@@ -41,11 +42,15 @@ function App() {
           <Route path="/products/:id">
             <DetailPage />
           </Route>
+          <Route path="/checkout">
+            <CheckOut/>
+          </Route>
           <Route path="/">
-            <HomePage addToCart={addToCart} />
+            <HomePage addToCart={addToCart}/>
           </Route>
         </Switch>
     </Router>
+    
   );
 }
 

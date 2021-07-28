@@ -17,7 +17,7 @@ export default function Header({ onCartClick }: Props) {
         <>
             <div className="bg-gray-900 text-gray-300 text-xs w-full p-1">
                 <div className="max-w-5xl mx-auto flex items-center">
-                    <div className="text-center flex-grow">Get free delivery on orders over $100</div>
+                    <div className="text-center flex-grow">Get free delivery on orders over $700</div>
                     <div className="space-x-4 flex items-center">
                         <button className="border-r-2 border-gray-700 px-4 hover:bg-gray-700 py-1 rounded focus:outline-none" onClick={() => setSignUpForm(!isSignUpFormOpen)}>Create an account</button>
                         <button className="hover:bg-gray-700 py-1 px-4 rounded focus:outline-none" onClick={() => setSignInForm(!isSignInFormOpen)}>Sign in</button>
@@ -25,7 +25,7 @@ export default function Header({ onCartClick }: Props) {
                 </div>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded w-full p-4 sticky">
+            <div className="bg-white border border-gray-200 rounded w-full p-4 sticky top-0">
                 <div className="max-w-5xl mx-auto flex items-center justify-between">
                     <div className="font-bold text-xl">Products</div>
                     <div>

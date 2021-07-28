@@ -5,9 +5,10 @@ import { ProductItem } from "../models";
 interface Props {
     id: number;
     quantity: number;
+    setProductPrice: (id: number, price: number) => void;
 }
 
-export default function CartProduct({id, quantity}: Props) {
+export default function CartProduct({id, quantity, setProductPrice}: Props) {
     let [product, setProduct] = useState<ProductItem>();
 
     useEffect(() => {
@@ -17,7 +18,7 @@ export default function CartProduct({id, quantity}: Props) {
             })
             .then((data) => {
                 setProduct(data);
-                console.log(data);
+                setProductPrice(id, data.price * quantity);
             })
             .catch((err) => {
                 console.log(err);
@@ -25,10 +26,10 @@ export default function CartProduct({id, quantity}: Props) {
     }, []);
 
     return (
-        <tr>
-            <td className="truncate w-full overflow-hidden">{product?.title}</td>
-            <td className="text-center px-1 py-2">{quantity}</td>
-            <td className="text-center px-1 py-2">{(product?.price ?? 0) * quantity}</td>
-        </tr>
+        <>
+            <div className="truncate" title={product?.title}>{product?.title}</div>
+            <div className="text-center px-1 py-2">{quantity}</div>
+            <div className="text-right px-1 py-2">{(product?.price ?? 0) * quantity}</div>
+        </>
     )
 } 
